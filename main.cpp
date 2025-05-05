@@ -2,35 +2,36 @@
 #include <string>
 #include <iomanip>
 
-//Функция шифрования и дешифрования XOR
+// XOR encryption/decryption function
 std::string xorEncryptDecrypt(const std::string& input, char key) {
-	std::string output = input;
-	for (size_t i = 0; i < input.size(); i++) {
-		output[i] = input[i] ^ key;
-	}
-	return output;
+    std::string output = input;
+    for (size_t i = 0; i < input.size(); i++) {
+        output[i] = input[i] ^ key;
+    }
+    return output;
 }
-int main() { 
-    setlocale(LC_ALL, "RU"); 
+
+int main() {
     std::string text;
     char key;
 
-    std::cout << "Введите строку(только на английском): ";
+    std::cout << "Enter a string (English only): ";
     std::getline(std::cin, text);
 
-    std::cout << "Введите ключ(символ): ";
+    std::cout << "Enter a key (one character): ";
     std::cin >> key;
 
-    std::string encrypted = xorEncryptDecrypt(text, key); 
+    std::string encrypted = xorEncryptDecrypt(text, key);
     std::string decrypted = xorEncryptDecrypt(encrypted, key);
 
-    std::cout << "Зашифровано (hex): ";
+    std::cout << "Encrypted (hex): ";
     for (char c : encrypted) {
-        std::cout << std::hex << std::uppercase << std::setw(2) << std::setfill('0') << (static_cast<int>(c) & 0xFF) << " "; //Пофиксил вывод, до этого выводилась пустая строка, сейчас все работает как надо
+        std::cout << std::hex << std::uppercase << std::setw(2)
+                  << std::setfill('0') << (static_cast<int>(c) & 0xFF) << " ";
     }
     std::cout << std::endl;
 
-    std::cout << "Расшифровано: " << decrypted << std::endl;
+    std::cout << "Decrypted: " << decrypted << std::endl;
 
     return 0;
-} 
+}
